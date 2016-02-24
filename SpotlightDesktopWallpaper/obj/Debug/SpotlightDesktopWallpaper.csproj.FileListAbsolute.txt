@@ -1,0 +1,8 @@
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\bin\Debug\SpotlightDesktopWallpaper.exe.config
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\bin\Debug\SpotlightDesktopWallpaper.exe
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\bin\Debug\SpotlightDesktopWallpaper.pdb
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\obj\Debug\SpotlightDesktopWallpaper.csprojResolveAssemblyReference.cache
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\obj\Debug\SpotlightDesktopWallpaper.NotificationIcon.resources
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\obj\Debug\SpotlightDesktopWallpaper.csproj.GenerateResource.Cache
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\obj\Debug\SpotlightDesktopWallpaper.exe
+C:\Users\Frosty\Documents\SharpDevelop Projects\SpotlightDesktopWallpaper\SpotlightDesktopWallpaper\obj\Debug\SpotlightDesktopWallpaper.pdb
