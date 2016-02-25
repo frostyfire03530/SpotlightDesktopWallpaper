@@ -39,6 +39,7 @@ namespace SpotlightDesktopWallpaper
 		{
 			MenuItem[] menu = new MenuItem[] {
 				new MenuItem("About", menuAboutClick),
+				new MenuItem("Start when Windows starts", menuStartClick),
 				new MenuItem("Exit", menuExitClick)
 			};
 			return menu;
@@ -56,14 +57,14 @@ namespace SpotlightDesktopWallpaper
 			
 			bool isFirstInstance;
 			// Please use a unique name for the mutex to prevent conflicts with other programs
-			using (Mutex mtxLockscreenToWallpaper = new Mutex(true, "Lockscreen_to_Wallpaper", out isFirstInstance)) {
+			using (Mutex mtxSpotlightDesktopWallpaper = new Mutex(true, "SpotlightDesktopWallpaper", out isFirstInstance)) {
 				if (isFirstInstance) {
 					NotificationIcon notificationIcon = new NotificationIcon();
 					notificationIcon.notifyIcon.Visible = true;
 					Application.Run(new wallpaperApplicationContext());
 					notificationIcon.notifyIcon.Dispose();
 				} else {
-					MessageBox.Show("Lockscreen to Wallpaper is already running!");
+					MessageBox.Show("SpotlightDesktopWallpaper is already running!","SpotlightDesktopWallpaper");
 				}
 			} // releases the Mutex
 		}
@@ -75,6 +76,18 @@ namespace SpotlightDesktopWallpaper
 			const string aboutBoxCaption = " About SpotlightDesktopWallpaper";
 			const string aboutBoxMessage = "Copyright 2016 Nathan Waters (frostyfire03530)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.Copyright 2016\n\nHome Page: http://nathanjwaters.com\n\nOriginal sources: https://code.msdn.microsoft.com/windowsapps/CSSetDesktopWallpaper-2107409c/sourcecode?fileId=21700&pathId=734742078\nhttp://www.codeproject.com/Articles/4502/RegistryMonitor-a-NET-wrapper-class-for-RegNotifyC\nhttp://stackoverflow.com/questions/18232972/how-to-read-value-of-a-registry-key-c-sharp\n\nWritten in C# using SharpDevelop 5.1.0\nBuild: 1.00";
 			MessageBox.Show(aboutBoxMessage,aboutBoxCaption);
+		}
+		
+		private void menuStartClick(object sender, EventArgs e)
+		{
+			if((notificationMenu.MenuItems[1]).Checked == false){
+				(notificationMenu.MenuItems[1]).Checked = true;
+			}
+			else{
+				(notificationMenu.MenuItems[1]).Checked = false;
+			}
+			
+			//%appdata%\Microsoft\Windows\Start Menu\Programs\Startup
 		}
 		
 		private void menuExitClick(object sender, EventArgs e)
