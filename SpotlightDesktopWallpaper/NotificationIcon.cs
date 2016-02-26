@@ -80,11 +80,19 @@ namespace SpotlightDesktopWallpaper
 		
 		private void menuStartClick(object sender, EventArgs e)
 		{
+			string linkPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\SpotlightDesktopWallpaper.lnk";
 			if((notificationMenu.MenuItems[1]).Checked == false){
+				if (System.IO.File.Exists(linkPath)){
+					System.IO.File.Delete(linkPath);
+				}
+				//Create link with reference to the current application location and save it to linkPath
 				(notificationMenu.MenuItems[1]).Checked = true;
 			}
 			else{
 				(notificationMenu.MenuItems[1]).Checked = false;
+				if (System.IO.File.Exists(linkPath)){
+					System.IO.File.Delete(linkPath);
+				}
 			}
 			
 			//%appdata%\Microsoft\Windows\Start Menu\Programs\Startup
