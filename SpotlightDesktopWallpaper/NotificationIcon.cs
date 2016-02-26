@@ -26,6 +26,10 @@ namespace SpotlightDesktopWallpaper
 		{
 			notifyIcon = new NotifyIcon();
 			notificationMenu = new ContextMenu(InitializeMenu());
+			RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if(rk.GetValue("SpotlightDesktopWallpaper") != null){
+			   	(notificationMenu.MenuItems[1]).Checked = true;
+			   }
 			notificationMonitor = new RegistryUtils.RegistryMonitor(RegistryHive.CurrentUser, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Lock Screen\\Creative\\");
 			notificationMonitor.RegChanged += OnRegChanged;
 			notificationMonitor.Start();
@@ -61,6 +65,7 @@ namespace SpotlightDesktopWallpaper
 				if (isFirstInstance) {
 					NotificationIcon notificationIcon = new NotificationIcon();
 					notificationIcon.notifyIcon.Visible = true;
+					
 					Application.Run(new wallpaperApplicationContext());
 					notificationIcon.notifyIcon.Dispose();
 				} else {
@@ -74,28 +79,20 @@ namespace SpotlightDesktopWallpaper
 		private void menuAboutClick(object sender, EventArgs e)
 		{
 			const string aboutBoxCaption = " About SpotlightDesktopWallpaper";
-			const string aboutBoxMessage = "Copyright 2016 Nathan Waters (frostyfire03530)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.Copyright 2016\n\nHome Page: http://nathanjwaters.com\n\nOriginal sources: https://code.msdn.microsoft.com/windowsapps/CSSetDesktopWallpaper-2107409c/sourcecode?fileId=21700&pathId=734742078\nhttp://www.codeproject.com/Articles/4502/RegistryMonitor-a-NET-wrapper-class-for-RegNotifyC\nhttp://stackoverflow.com/questions/18232972/how-to-read-value-of-a-registry-key-c-sharp\n\nWritten in C# using SharpDevelop 5.1.0\nBuild: 1.00";
+			const string aboutBoxMessage = "Copyright 2016 Nathan Waters (frostyfire03530)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.Copyright 2016\n\nHome Page: http://nathanjwaters.com\n\nOriginal sources: https://code.msdn.microsoft.com/windowsapps/CSSetDesktopWallpaper-2107409c/sourcecode?fileId=21700&pathId=734742078\nhttp://www.codeproject.com/Articles/4502/RegistryMonitor-a-NET-wrapper-class-for-RegNotifyC\nhttp://stackoverflow.com/questions/18232972/how-to-read-value-of-a-registry-key-c-sharp\nhttp://stackoverflow.com/questions/674628/how-do-i-set-a-program-to-launch-at-startup\n\nWritten in C# using SharpDevelop 5.1.0\nBuild: 1.0.5";
 			MessageBox.Show(aboutBoxMessage,aboutBoxCaption);
 		}
 		
 		private void menuStartClick(object sender, EventArgs e)
 		{
-			string linkPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\SpotlightDesktopWallpaper.lnk";
 			if((notificationMenu.MenuItems[1]).Checked == false){
-				if (System.IO.File.Exists(linkPath)){
-					System.IO.File.Delete(linkPath);
-				}
-				//Create link with reference to the current application location and save it to linkPath
 				(notificationMenu.MenuItems[1]).Checked = true;
+				SetStartup();
 			}
 			else{
 				(notificationMenu.MenuItems[1]).Checked = false;
-				if (System.IO.File.Exists(linkPath)){
-					System.IO.File.Delete(linkPath);
-				}
+				SetStartup();
 			}
-			
-			//%appdata%\Microsoft\Windows\Start Menu\Programs\Startup
 		}
 		
 		private void menuExitClick(object sender, EventArgs e)
@@ -116,6 +113,17 @@ namespace SpotlightDesktopWallpaper
 			//System.Diagnostics.Debug.Write(output);
 			ApplicationContext wallpaperApplicationContext = new wallpaperApplicationContext();
 		}
+		
+		private void SetStartup()
+	    {
+	        RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+	        if ((notificationMenu.MenuItems[1]).Checked){
+	        	rk.SetValue("SpotlightDesktopWallpaper", Application.ExecutablePath.ToString());
+	        }
+	        else{
+	        	rk.DeleteValue("SpotlightDesktopWallpaper",false);
+	        }
+	    }
 		#endregion
 	}
 	public class wallpaperApplicationContext : ApplicationContext
