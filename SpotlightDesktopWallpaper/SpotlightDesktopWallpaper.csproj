@@ -12,6 +12,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ApplicationIcon>..\..\..\..\Pictures\logo2.ico</ApplicationIcon>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <SignAssembly>False</SignAssembly>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>

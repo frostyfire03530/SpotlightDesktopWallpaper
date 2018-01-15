@@ -66,5 +66,18 @@ namespace SpotlightDesktopWallpaper{
                 throw new Win32Exception();
             }
 	    }
+	    public static void Save(string path){
+   			// Specify a name for your top-level folder.
+        	string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        	// To create a string that specifies the path to a subfolder under your top-level folder, add a name for the subfolder to folderName.
+	        string pathString = System.IO.Path.Combine(folderName, "SpotlightDesktopWallpaper");
+	        if(!System.IO.Directory.Exists(pathString)){
+	           	System.IO.Directory.CreateDirectory(pathString);
+	        }
+	        string newpath = String.Format(@"{0}\SpotlightDesktopWallpaper\{1}.jpg", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), Path.GetFileNameWithoutExtension(path));
+		    if(!System.IO.File.Exists(newpath)){
+				System.IO.File.Copy(path, newpath);
+		    }
+	    }
 	}
 }
