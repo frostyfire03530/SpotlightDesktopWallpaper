@@ -53,6 +53,7 @@ namespace RegistryUtils{
 		private const int KEY_QUERY_VALUE = 0x0001; 
 		private const int KEY_NOTIFY = 0x0010; 
 		private const int STANDARD_RIGHTS_READ = 0x00020000; 
+		private const int KEY_WOW64_64KEY = 0x100;
 		private static readonly IntPtr HKEY_CLASSES_ROOT = new IntPtr(unchecked((int) 0x80000000)); 
 		private static readonly IntPtr HKEY_CURRENT_USER = new IntPtr(unchecked((int) 0x80000001)); 
 		private static readonly IntPtr HKEY_LOCAL_MACHINE = new IntPtr(unchecked((int) 0x80000002)); 
@@ -271,7 +272,7 @@ namespace RegistryUtils{
 		}
 		private void ThreadLoop(){ 
 			IntPtr registryKey; 
-			int result = RegOpenKeyEx(_registryHive, _registrySubName, 0, STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_NOTIFY, out registryKey); 
+			int result = RegOpenKeyEx(_registryHive, _registrySubName, 0, STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_NOTIFY | KEY_WOW64_64KEY , out registryKey); 
 			if(result != 0){
 				throw new Win32Exception(result); 
 			}
